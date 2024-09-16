@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>To do list</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+<h1> list of tasks </h1>
+    <table>
+        <tr>
+            <th>name</th>
+            <th>description</th>
+            <th>is completed</th>
+        </tr>
+        {% for task in data %}
+            <tr>
+                <td>{{ task.name }}</td>
+                <td>{{ task.description }}</td>
+                <td>{{ task.is_done }}</td>
+            </tr>
+        {% endfor %}
+        
+    </table>
+</body>
+</html>
