@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'common/base.html' %}
 {% load static %}
 
 {% block content %}
@@ -8,21 +8,25 @@
         <h2>Add pet</h2>
 
         <!-- Start Add Pet Form -->
-        <form action="#">
-            <p>
-                <label for="pet-name">Pet name: </label>
-                <input type="text" placeholder="Pet name">
-            </p>
-            <p>
-                <label for="pet-date">Date of birth: </label>
-                <input type="date">
-            </p>
-            <p>
-                <label for="pet-image">Link to image: </label>
-                <input type="text" placeholder="Link to image">
-            </p>
-            <!-- Add Pet Button -->
+        <form method="post" action="#">
+{#            <p>#}
+{#                <label for="pet-name">Pet name: </label>#}
+{#                <input type="text" placeholder="Pet name">#}
+{#            </p>#}
+{#            <p>#}
+{#                <label for="pet-date">Date of birth: </label>#}
+{#                <input type="date">#}
+{#            </p>#}
+{#            <p>#}
+{#                <label for="pet-image">Link to image: </label>#}
+{#                <input type="text" placeholder="Link to image">#}
+{#            </p>#}
+{#            <!-- Add Pet Button -->#}
+{#            <button class="add-btn" type="submit">Add Pet</button>#}
+            {% csrf_token %}
+            {{ form.as_p }}
             <button class="add-btn" type="submit">Add Pet</button>
+            
         </form>
         <!-- End Add Pet Form -->
 

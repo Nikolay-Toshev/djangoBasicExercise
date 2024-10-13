@@ -46,17 +46,18 @@
                         <div class="left">
                             <!-- Start Like Button -->
                             <span class="heart">
-                                <a href="#">
-                                    <!-- if user has liked the photo -->
+                                <a href="{% url 'like' photo.id %}">
+                                    {% if photo.like_set.all %}
                                     <i class="fa-solid fa-heart" style="color: #ed4040;"></i>
-                                    <!-- else -->
+                                    {% else %}
                                     <i class="fa-regular fa-heart"></i>
+                                    {% endif %} 
                                 </a>
                             </span>
                             <!-- End Like Button -->
 
                             <!-- Start Share Button -->
-                            <a href="#">
+                            <a href="{% url 'share' photo.id %}">
                                 <i class="fa-solid fa-share"></i>
                             </a>
                             <!-- End Share Button -->
