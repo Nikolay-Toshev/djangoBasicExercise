@@ -1,15 +1,24 @@
 from django.shortcuts import render, redirect, resolve_url
 from pyperclip import copy
 
+from workshop_1.common.forms import CommentForm, SearchForm
 from workshop_1.common.models import Like
 from workshop_1.photos.models import Photo
 
 def index(request):
 
     all_photos = Photo.objects.all()
+    comment_form = CommentForm()
+    search_form = SearchForm(request.GET or None)
+
+    if search_form.is_valid():
+        all_photos = all_photos.filter(tagged_pets__name__icontains=search_form.cleaned_data['pet_name'])
+
 
     context = {
-        'all_photos': all_photos
+        'all_photos': all_photos,
+        'comment_form': comment_form,
+        'search_form': search_form,
     }
 
     return render(request, 'common/home-page.html', context)
@@ -34,3 +43,15 @@ def copy_link_to_clipboard(request, photo_id):
 
     return redirect(request.META['HTTP_REFERER'] + f'#{photo_id}')
 
+
+def add_comment(request, photo_id):
+    if request.method == "POST":
+        photo = Photo.objects.get(id=photo_id)
+        comment_form = CommentForm(request.POST)
+
+        if comment_form.is_valid():
+            comment = comment_form.save(commit=False) #create Object without saving it to the DB
+            comment.to_photo = photo # create relation
+            comment.save()
+
+        return redirect(request.META['HTTP_REFERER'] + f'#{photo_id}')

@@ -6,10 +6,11 @@
         <div class="col-9">
 
             <!-- Start Searchbar Form -->
-            <form class="searchbar" method="post">
-                <input type="text" placeholder="Search by pet name...">
+            <form class="searchbar" method="get">
+                {% csrf_token %}
+                {{ search_form }}
                 <button>
-                    <img src="/static/images/search.png" height="18" alt="img2">
+                    <img src="{% static 'images/search.png' %}" height="18" alt="img2">
                 </button>
             </form>
             <!-- End Searchbar Form -->
@@ -18,8 +19,9 @@
             
             {% include 'common/pet-posts.html' %}
             
-            <img class="no-posts" src="/static/images/no_posts.png" alt="no posts image">
-            
+            {% if not all_photos %}
+                <img class="no-posts" src="{% static 'images/no_posts.png' %}" alt="no posts image">
+            {% endif %}
         </div>    
 
         </div>

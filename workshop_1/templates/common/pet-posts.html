@@ -1,9 +1,6 @@
 {% for photo in all_photos %}
-<!-- Start Pet Photos Post Section -->
-            <!-- Start First Pet Photo Post -->
-            <div class="card">
 
-                <!-- Start User Details and Image Location -->
+            <div class="card">
                 <div class="top">
                     <div class="userDetails">
                         <!-- Link to User Profile Page -->
@@ -36,7 +33,7 @@
 
                 <!-- Start Pet Photo -->
                 <div class="imgBx" id={{ photo.pk }}>
-                    <img src="/static/images/axolotl.jpeg" alt="post" class="cover">
+                    <img src="{{ photo.photo.url }}" alt="post" class="cover">
                 </div>
                 <!-- End Pet Photo -->
 
@@ -67,7 +64,7 @@
                     <!-- End Like and Share Buttons -->
 
                     <!-- Number of Likes per Photo -->
-                    <p class="likes">203 likes</p>
+                    <p class="likes">{{ photo.like_set.count }}</p>
 
 
                     <!-- Start Tagged Pets -->
@@ -89,16 +86,15 @@
                     </a>
 
                     <!-- Date of Publication -->
-                    <h5 class="postTime">19/09/2022</h5>
+                    <h5 class="postTime">{{ photo.date_of_publication }}</h5>
 
                     <!-- Start Add Comments Section -->
                     <div class="addComments">
 
                         <!-- Start Add Comments Form -->
-                        <form method="post" action="#">
-                            <label for="id_body">Body:</label>
-                            <textarea name="body" cols="40" rows="10" placeholder="Add comment..." maxlength="300"
-                                      required="" id="id_body"></textarea>
+                        <form method="post" action="{% url 'comment' photo.id %}">
+                            {% csrf_token %}
+                            {{ comment_form }}
                             <button type="submit">Post</button>
                         </form>
                         <!-- End Add Comments Form -->

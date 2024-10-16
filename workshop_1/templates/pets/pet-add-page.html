@@ -9,20 +9,7 @@
 
         <!-- Start Add Pet Form -->
         <form method="post" action="#">
-{#            <p>#}
-{#                <label for="pet-name">Pet name: </label>#}
-{#                <input type="text" placeholder="Pet name">#}
-{#            </p>#}
-{#            <p>#}
-{#                <label for="pet-date">Date of birth: </label>#}
-{#                <input type="date">#}
-{#            </p>#}
-{#            <p>#}
-{#                <label for="pet-image">Link to image: </label>#}
-{#                <input type="text" placeholder="Link to image">#}
-{#            </p>#}
-{#            <!-- Add Pet Button -->#}
-{#            <button class="add-btn" type="submit">Add Pet</button>#}
+
             {% csrf_token %}
             {{ form.as_p }}
             <button class="add-btn" type="submit">Add Pet</button>
