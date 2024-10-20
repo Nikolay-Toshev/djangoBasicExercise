@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+      <!-- Catalog with Albums-->
+      <section id="catalogPage">
+
+        {% if all_albums %}
+            <h1>All Albums</h1>
+            {% for album in all_albums %}
+                {% include 'albums/album-card.html' %}
+            {% endfor %}
+        {% else %}
+            <p>No Albums in Catalog!</p>
+        {% endif %}
+      
+      </section>
+
+{% endblock %}
