@@ -9,7 +9,9 @@ class Pet(models.Model):
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
-        self.slug = slugify(f"{self.name}-{self.id}")
+
+        if self.slug is None:
+            self.slug = slugify(f"{self.name}-{self.id}")
         return super().save(*args, **kwargs)
 
     def __str__(self):
