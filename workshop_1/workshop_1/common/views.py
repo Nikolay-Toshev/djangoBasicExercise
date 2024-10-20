@@ -1,3 +1,4 @@
+from django.db.models import Count
 from django.shortcuts import render, redirect, resolve_url
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.views.generic import ListView
@@ -41,7 +42,7 @@ class HomePageView(ListView):
     model = Photo
     template_name = 'common/home-page.html'
     context_object_name = 'all_photos'
-    paginate_by = 2
+    paginate_by = 1
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -54,7 +55,7 @@ class HomePageView(ListView):
         pet_name = self.request.GET.get('pet_name')
 
         if pet_name:
-            queryset = queryset.filter(tagged_pets__name__icontains=pet_name)
+            queryset = queryset.filter(tagged_pets__name__icontains=pet_name).annotate(tag_count=Count('tagged_pets'))
         return queryset
 
 
