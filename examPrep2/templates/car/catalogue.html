@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    
+    {% if all_cars %}
+      <section id="catalogue">
+        <h1>Total cars: {{ all_cars.count }}</h1>
+    {% else %}  
+         <p class="no-articles">No cars yet</p>
+    {% endif %}  
+        
+      </section>
+    
+    {% for car in all_cars %}
+        {% include 'car/car-card.html' %}
+    {% endfor %}
+
+{% endblock %}
