@@ -24,7 +24,15 @@ class AddPetView(CreateView):
     model = Pet
     form_class = PetForm
     template_name = 'pets/pet-add-page.html'
-    success_url = reverse_lazy('profile-details', kwargs={'pk': 1})
+
+    def form_valid(self, form):
+        pet = form.save(commit=False)
+        pet.user = self.request.user
+        pet.save()
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse_lazy('profile-details', kwargs={'pk': self.request.user.pk})
 
 # def show_pet_details(request, username, pet_slug):
 #     pet = Pet.objects.get(slug=pet_slug)
